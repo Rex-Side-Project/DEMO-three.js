@@ -3,6 +3,7 @@ let scene, renderer, camera
 let cube
 let cameraControl, stats
 
+
 // 初始化場景、渲染器、相機、物體
 function init() {
     // 建立場景
@@ -21,10 +22,10 @@ function init() {
     camera = new THREE.PerspectiveCamera(
         70,
         window.innerWidth / window.innerHeight,
-        0.1,
-        100
+        1,
+        10000
     )
-    camera.position.set(-20, 20, 20)
+    camera.position.set(0, 200, 100)
     camera.lookAt(scene.position)
 
     // 建立 OrbitControls
