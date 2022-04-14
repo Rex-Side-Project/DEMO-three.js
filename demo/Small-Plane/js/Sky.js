@@ -39,13 +39,4 @@ var Sky = function () {
     }
 }
 
-// // 实例化天空对象，并把它的中心点放到屏幕下方
-// var sky;
-
-// function createSky() {
-//     sky = new Sky();
-//     sky.mesh.position.y = -600;
-//     scene.add(sky.mesh);
-// }
-
 export { Sky }
