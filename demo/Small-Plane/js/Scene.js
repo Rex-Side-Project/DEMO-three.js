@@ -1,12 +1,28 @@
 class Scene {
     constructor(domElement) {
         this.domElement = domElement;
-        this.loopFuncs = [];
+        this.objects = [];
     }
 
     init() {
         this.CreateScene();     // 設置scene, camera, renderer
         this.CreateLights();    // lights
+
+        this.mousePos = { x: 0, y: 0 };
+        document.addEventListener('mousemove', (event) => {
+            // here we are converting the mouse position value received 
+            // to a normalized value varying between -1 and 1;
+            // this is the formula for the horizontal axis:
+
+            var tx = -1 + (event.clientX / this.WIDTH) * 2;
+
+            // for the vertical axis, we need to inverse the formula 
+            // because the 2D y-axis goes the opposite direction of the 3D y-axis
+
+            var ty = 1 - (event.clientY / this.HEIGHT) * 2;
+            this.mousePos = { x: tx, y: ty };
+            // console.log(this.mousePos);
+        }, false);
     }
 
     /**
@@ -34,7 +50,7 @@ class Scene {
             nearPlane,
             farPlane
         );
-        this.camera.position.set(0, 200, 100); // camera 座標
+        this.camera.position.set(0, 100, 200); // camera 座標
 
         // 建立渲染器 renderer
         this.renderer = new THREE.WebGLRenderer({
@@ -93,22 +109,17 @@ class Scene {
     /**
      * 在場景新增
      */
-    add(obj, loopFunc) {
-        this.scene.add(obj);
-        if (loopFunc) {
-            this.loopFuncs.push(loopFunc);
-        }
+    add(obj) {
+        this.scene.add(obj.mesh);
+        this.objects.push(obj);
     }
 
     /**
      * 循環 更新物體位置 渲染每一禎數畫面
      */
     loop() {
-        // 转动螺旋桨、大海和天空
-        // airplane.propeller.rotation.x += 0.3;
-
-        this.loopFuncs.forEach(func => {
-            func();
+        this.objects.forEach(obj => {
+            obj.NextAnimationFrame(this);
         });
 
         // 渲染場景

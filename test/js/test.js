@@ -1,7 +1,9 @@
 import { OrbitControls } from '../../lib/OrbitControls.js';
 let scene, renderer, camera
-let cube
+let cube, obj
 let cameraControl, stats
+
+import { Cloud } from '../../demo/Small-Plane/js/Objects/Sky.js';
 
 
 // 初始化場景、渲染器、相機、物體
@@ -25,7 +27,7 @@ function init() {
         1,
         10000
     )
-    camera.position.set(0, 200, 100)
+    camera.position.set(0, 50, 50)
     camera.lookAt(scene.position)
 
     // 建立 OrbitControls
@@ -59,30 +61,34 @@ function init() {
 }
 
 function CreateObject() {
-    // 建立物體
-    const geometry = new THREE.BoxGeometry(10, 2, 2) // 幾何體
-    const material = new THREE.MeshPhongMaterial({
-        color: 0xeabbc5
-    }) // 材質
-    cube = new THREE.Mesh(geometry, material) // 建立網格物件
-    cube.position.set(5, 1, 1)
-    scene.add(cube)
+    // // 建立物體
+    // const geometry = new THREE.BoxGeometry(10, 2, 2) // 幾何體
+    // const material = new THREE.MeshPhongMaterial({
+    //     color: 0xeabbc5
+    // }) // 材質
+    // cube = new THREE.Mesh(geometry, material) // 建立網格物件
+    // cube.position.set(5, 1, 1)
+    // scene.add(cube)
 
 
-    // 建立物體
-    const geometry2 = new THREE.BoxGeometry(10, 2, 2) // 幾何體
-    const material2 = new THREE.MeshPhongMaterial({
-        color: 0xeabbc0
-    }) // 材質
-    cube = new THREE.Mesh(geometry2, material2) // 建立網格物件
-    cube.position.set(15, 4, 4)
-    scene.add(cube)
+    // // 建立物體
+    // const geometry2 = new THREE.BoxGeometry(10, 2, 2) // 幾何體
+    // const material2 = new THREE.MeshPhongMaterial({
+    //     color: 0xeabbc0
+    // }) // 材質
+    // cube = new THREE.Mesh(geometry2, material2) // 建立網格物件
+    // cube.position.set(15, 4, 4)
+    // scene.add(cube)
+
+    var cloud = new Cloud();
+    cloud.mesh.scale.set(.25, .25, .25);
+    scene.add(cloud.mesh);
 }
 
 // 建立動畫
 function animate() {
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
+    // cube.rotation.x += 0.01
+    // cube.rotation.y += 0.01
 }
 
 // 渲染場景
